@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/videoListFragment">
+
+    <fragment
+        android:id="@+id/videoListFragment"
+        android:name="com.example.videoplayer.ui.videolist.VideoListFragment">
+        <action
+            android:id="@+id/action_videoListFragment_to_videoPlaybackFragment"
+            app:destination="@id/videoPlaybackFragment"
+            app:popUpTo="@id/videoListFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/videoPlaybackFragment"
+        android:name="com.example.videoplayer.ui.videoplayback.VideoPlaybackFragment">
+        <argument
+            android:name="videoUrl"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+</navigation>
