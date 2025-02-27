@@ -14,14 +14,13 @@ class VideoPlayerApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // Инициализация API и базы данных вручную
         val apiService = Retrofit.Builder()
-            .baseUrl("https://d36fd52e-d7bd-4ae9-9c92-521c1b0f3a3a.mock.pstmn.io") // Твой Mock Server URL из Postman
+            .baseUrl("https://d36fd52e-d7bd-4ae9-9c92-521c1b0f3a3a.mock.pstmn.io")
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY // Логировать тело запроса и ответа
+                    level = HttpLoggingInterceptor.Level.BODY
                 })
                 .build())
             .build()

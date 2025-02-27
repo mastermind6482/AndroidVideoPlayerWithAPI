@@ -9,6 +9,8 @@ import com.example.videoplayer.R
 import com.example.videoplayer.databinding.FragmentVideoPlaybackBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PlaybackException
+import com.google.android.exoplayer2.Player
 
 class VideoPlaybackFragment : Fragment() {
     private var _binding: FragmentVideoPlaybackBinding? = null
@@ -29,11 +31,22 @@ class VideoPlaybackFragment : Fragment() {
         player = ExoPlayer.Builder(requireContext()).build()
         binding.playerView.player = player
 
-        val videoUrl = arguments?.getString("videoUrl")
-        val mediaItem = MediaItem.fromUri(videoUrl ?: "")
+        val videoUrl = arguments?.getString("videoUrl") ?: ""
+        if (videoUrl.isEmpty()) {
+            android.util.Log.e("VideoPlaybackFragment", "videoUrl пустой или отсутствует")
+        } else {
+            android.util.Log.d("VideoPlaybackFragment", "Попытка воспроизвести: $videoUrl")
+        }
+        val mediaItem = MediaItem.fromUri(videoUrl)
         player.setMediaItem(mediaItem)
         player.prepare()
         player.play()
+
+        player.addListener(object : Player.Listener {
+            override fun onPlayerError(error: PlaybackException) {
+                android.util.Log.e("VideoPlaybackFragment", "Ошибка воспроизведения: ${error.message}")
+            }
+        })
     }
 
     override fun onDestroyView() {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.videoplayer.R
 import com.example.videoplayer.data.model.VideoItem
 import com.example.videoplayer.VideoPlayerApp
@@ -30,10 +31,11 @@ class VideoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Добавляем LinearLayoutManager
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
 
         val adapter = VideoListAdapter { video ->
+            android.util.Log.d("VideoListFragment", "Нажатие на видео: ${video.title}")
             findNavController().navigate(
                 R.id.action_videoListFragment_to_videoPlaybackFragment,
                 Bundle().apply { putString("videoUrl", video.videoUrl) }

@@ -30,6 +30,7 @@ class VideoListAdapter(private val onClick: (VideoItem) -> Unit) :
         fun bind(video: VideoItem) {
             android.util.Log.d("VideoListAdapter", "Привязка видео: ${video.title}")
             itemView.findViewById<TextView>(R.id.videoTitle).text = video.title
+            itemView.findViewById<TextView>(R.id.videoDescription).text = video.description
             itemView.findViewById<ImageView>(R.id.videoThumbnail).load(video.thumbnailUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_placeholder)
